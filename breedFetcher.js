@@ -1,7 +1,7 @@
 const request = require('request');
 
 const fetchBreedDescription = function (breedName, callback) {
-  const domain = 'https://api.themcatapi.com/v1/breeds/search?q=';
+  const domain = 'https://api.thecatapi.com/v1/breeds/search?q=';
   const URL = domain.concat(breedName);
 
   request(URL, (error, response, body) => {
@@ -9,16 +9,16 @@ const fetchBreedDescription = function (breedName, callback) {
       callback(error, null)
       return;
     };
-    
-    if (body === '[]') {
+    const catObject = JSON.parse(body)
+
+    if (catObject[0] === undefined) {
       callback(null, "This cat breed is not in 'thecatapi' database");
       return;
     };
 
-    const catObject = JSON.parse(body).pop(0);
-    console.log(catObject['description']);
-    
+    console.log(catObject[0].description);
+
   });
 }
 
-module.exports = fetchBreedDescription;
+module.exports = { fetchBreedDescription };
