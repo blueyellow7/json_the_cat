@@ -9,16 +9,14 @@ const fetchBreedDescription = function (breedName, callback) {
       callback(error, null)
       return;
     };
-    const catObject = JSON.parse(body)
-
-    if (catObject[0] === undefined) {
+    if (body === '[]') {
       callback(null, "This cat breed is not in 'thecatapi' database");
       return;
     };
-
-    console.log(catObject[0].description);
-
+    const catObject = JSON.parse(body).pop();
+    const description = catObject['description'];
+    callback(null, description);
   });
-}
+};
 
 module.exports = { fetchBreedDescription };
