@@ -18,7 +18,7 @@ request(URL, (error, response, body) => {
   }
 
   const catObject = JSON.parse(body).pop(0);
-  // removes object from array
+  // changes string to object with JSON.parse -> then pops out object from array
   console.log(catObject['description']);
   
 });
